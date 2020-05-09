@@ -10,20 +10,20 @@ class BoardAnalyzer(
         return board.cells.filter { cell ->
             cell.isEmpty()
         }.map { cell ->
-            (1..board.size).filter {
-                board.row(cell.index.y).containsNot(it)
-            }.filter {
-                board.column(cell.index.x).containsNot(it)
-            }.filter {
+            (1..board.size).map {
+                it.toString()
+            }.filterNot {
+                board.row(cell.index.y).cells.toValues().contains(it)
+            }.filterNot {
+                board.column(cell.index.x).cells.toValues().contains(it)
+            }.filterNot {
                 val square = board.squares.find { square -> square.contains(cell) }!!
-                square.cells.containsNot(it)
+                square.cells.toValues().contains(it)
             }.let {
                 cell.index to it.joinToString(separator = ",")
             }
         }.toMap()
     }
 
-    private fun List<Cell>.containsNot(value: Int): Boolean = this.all { cell ->
-        cell.value != value.toString()
-    }
+    private fun List<Cell>.toValues(): List<String> = this.map { it.value }
 }
