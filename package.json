@@ -1,0 +1,10 @@
+{
+  "name": "resources-node",
+  "version": "1.0.0",
+  "dependencies": {
+    "sass": "1.25.0"
+  },
+  "scripts": {
+    "build": "sass ./src/main/resources/templates/scss/:./src/main/resources/templates/css/ --style compressed"
+  }
+}
