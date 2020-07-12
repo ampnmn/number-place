@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ナンプレ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>number place</h1>
+</header>
+
+<div class="mainContent">
+    <table class="board">
+        <tr>
+            <td class="boardNumber top left" data-x="1" data-y="1">1</td>
+            <td class="boardNumber top" data-x="2" data-y="1">2</td>
+            <td class="boardNumber top" data-x="3" data-y="1">3</td>
+            <td class="boardNumber top left" data-x="4" data-y="1">4</td>
+            <td class="boardNumber top" data-x="5" data-y="1">5</td>
+            <td class="boardNumber top" data-x="6" data-y="1">6</td>
+            <td class="boardNumber top left" data-x="7" data-y="1">7</td>
+            <td class="boardNumber top" data-x="8" data-y="1">8</td>
+            <td class="boardNumber top right" data-x="9" data-y="1">9</td>
+        </tr>
+        <!--/* Thymeleaf Block comment -->
+        <tr>
+            <td class="boardNumber left" data-x="1" data-y="2">1</td>
+            <td class="boardNumber" data-x="2" data-y="2">2</td>
+            <td class="boardNumber" data-x="3" data-y="2">3</td>
+            <td class="boardNumber left" data-x="4" data-y="2">4</td>
+            <td class="boardNumber" data-x="5" data-y="2">5</td>
+            <td class="boardNumber" data-x="6" data-y="2">6</td>
+            <td class="boardNumber left" data-x="7" data-y="2">7</td>
+            <td class="boardNumber" data-x="8" data-y="2">8</td>
+            <td class="boardNumber right" data-x="9" data-y="2">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber bottom left" data-x="1" data-y="3">1</td>
+            <td class="boardNumber bottom" data-x="2" data-y="3">2</td>
+            <td class="boardNumber bottom" data-x="3" data-y="3">3</td>
+            <td class="boardNumber bottom left" data-x="4" data-y="3">4</td>
+            <td class="boardNumber bottom" data-x="5" data-y="3">5</td>
+            <td class="boardNumber bottom" data-x="6" data-y="3">6</td>
+            <td class="boardNumber bottom left" data-x="7" data-y="3">7</td>
+            <td class="boardNumber bottom" data-x="8" data-y="3">8</td>
+            <td class="boardNumber bottom right" data-x="9" data-y="3">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber left" data-x="1" data-y="4">1</td>
+            <td class="boardNumber" data-x="2" data-y="4">2</td>
+            <td class="boardNumber" data-x="3" data-y="4">3</td>
+            <td class="boardNumber left" data-x="4" data-y="4">4</td>
+            <td class="boardNumber" data-x="5" data-y="4">5</td>
+            <td class="boardNumber" data-x="6" data-y="4">6</td>
+            <td class="boardNumber left" data-x="7" data-y="4">7</td>
+            <td class="boardNumber" data-x="8" data-y="4">8</td>
+            <td class="boardNumber right" data-x="9" data-y="4">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber left" data-x="1" data-y="5">1</td>
+            <td class="boardNumber" data-x="2" data-y="5">2</td>
+            <td class="boardNumber" data-x="3" data-y="5">3</td>
+            <td class="boardNumber left" data-x="4" data-y="5">4</td>
+            <td class="boardNumber" data-x="5" data-y="5">5</td>
+            <td class="boardNumber" data-x="6" data-y="5">6</td>
+            <td class="boardNumber left" data-x="7" data-y="5">7</td>
+            <td class="boardNumber" data-x="8" data-y="5">8</td>
+            <td class="boardNumber right" data-x="9" data-y="5">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber bottom left" data-x="1" data-y="6">1</td>
+            <td class="boardNumber bottom" data-x="2" data-y="6">2</td>
+            <td class="boardNumber bottom" data-x="3" data-y="6">3</td>
+            <td class="boardNumber bottom left" data-x="4" data-y="6">4</td>
+            <td class="boardNumber bottom" data-x="5" data-y="6">5</td>
+            <td class="boardNumber bottom" data-x="6" data-y="6">6</td>
+            <td class="boardNumber bottom left" data-x="7" data-y="6">7</td>
+            <td class="boardNumber bottom" data-x="8" data-y="6">8</td>
+            <td class="boardNumber bottom right" data-x="9" data-y="6">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber left" data-x="1" data-y="7">1</td>
+            <td class="boardNumber" data-x="2" data-y="7">2</td>
+            <td class="boardNumber" data-x="3" data-y="7">3</td>
+            <td class="boardNumber left" data-x="4" data-y="7">4</td>
+            <td class="boardNumber" data-x="5" data-y="7">5</td>
+            <td class="boardNumber" data-x="6" data-y="7">6</td>
+            <td class="boardNumber left" data-x="7" data-y="7">7</td>
+            <td class="boardNumber" data-x="8" data-y="7">8</td>
+            <td class="boardNumber right" data-x="9" data-y="7">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber left" data-x="1" data-y="8">1</td>
+            <td class="boardNumber" data-x="2" data-y="8">2</td>
+            <td class="boardNumber" data-x="3" data-y="8">3</td>
+            <td class="boardNumber left" data-x="4" data-y="8">4</td>
+            <td class="boardNumber" data-x="5" data-y="8">5</td>
+            <td class="boardNumber" data-x="6" data-y="8">6</td>
+            <td class="boardNumber left" data-x="7" data-y="8">7</td>
+            <td class="boardNumber" data-x="8" data-y="8">8</td>
+            <td class="boardNumber right" data-x="9" data-y="8">9</td>
+        </tr>
+        <tr>
+            <td class="boardNumber bottom left" data-x="1" data-y="9">1</td>
+            <td class="boardNumber bottom" data-x="2" data-y="9">2</td>
+            <td class="boardNumber bottom" data-x="3" data-y="9">3</td>
+            <td class="boardNumber bottom left" data-x="4" data-y="9">4</td>
+            <td class="boardNumber bottom" data-x="5" data-y="9">5</td>
+            <td class="boardNumber bottom" data-x="6" data-y="9">6</td>
+            <td class="boardNumber bottom left" data-x="7" data-y="9">7</td>
+            <td class="boardNumber bottom" data-x="8" data-y="9">8</td>
+            <td class="boardNumber bottom right" data-x="9" data-y="9">9</td>
+        </tr>
+        <!-- Thymeleaf Block comment */-->
+    </table>
+</div>
+
+<div class="modal" id="Modal">
+    <div class="inner">
+        <div class="numberSelector">
+            <div class="row">
+                <button class="number" value="1">1</button>
+                <button class="number" value="2">2</button>
+                <button class="number" value="3">3</button>
+            </div>
+            <div class="row">
+                <button class="number" value="4">4</button>
+                <button class="number" value="5">5</button>
+                <button class="number" value="6">6</button>
+            </div>
+            <div class="row">
+                <button class="number" value="7">7</button>
+                <button class="number" value="8">8</button>
+                <button class="number" value="9">9</button>
+            </div>
+            <div class="row">
+                <button class="number clear" value="">clear</button>
+            </div>
+        </div>
+    </div>
+    <div class="background" id="modalBackground"></div>
+</div>
+
+<script>
+    let x, y;
+    window.onload = function () {
+        const boardElm = document.querySelector('.board');
+        const boardNumberElms = boardElm.querySelectorAll('.boardNumber');
+
+        const modalElm = document.querySelector('#Modal');
+        const modalNumberElms = modalElm.querySelectorAll('.number');
+        const modalBackgroundElm = modalElm.querySelector('#modalBackground');
+
+        // モーダルをOPENする
+        boardNumberElms.forEach(boardNumber => {
+            boardNumber.addEventListener('click', function () {
+                x = this.dataset.x;
+                y = this.dataset.y;
+                modalElm.classList.add('is-show');
+            })
+        });
+
+        // モーダルで数字を選択する
+        modalNumberElms.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']")
+                cell.textContent = button.value;
+                modalElm.classList.remove('is-show');
+            });
+        });
+
+        // モーダルをCLOSEする
+        modalBackgroundElm.addEventListener('click', function () {
+            modalElm.classList.remove('is-show');
+        });
+    }
+</script>
+
+</body>
+</html>
