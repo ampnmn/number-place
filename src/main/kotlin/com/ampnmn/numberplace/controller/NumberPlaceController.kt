@@ -1,12 +1,12 @@
 package com.ampnmn.numberplace.controller
 
 import com.ampnmn.numberplace.model.Board
+import com.ampnmn.numberplace.model.BoardAnalyzer
 import com.ampnmn.numberplace.model.Cell
 import com.ampnmn.numberplace.model.Index
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("number-place")
@@ -107,5 +107,18 @@ class NumberPlaceController {
             model.addAttribute("board", it)
         }
         return "index"
+    }
+
+    @PostMapping("analyze")
+    @ResponseBody
+    fun analyze(model: Model, @RequestBody board: Array<String>): Map<Index, String> {
+        return board.map {
+            val arr = it.split(',')
+            Cell(index = Index(x = arr[0].toInt(), y = arr[1].toInt()), value = arr[2])
+        }.let {
+            Board(it)
+        }.let {
+            BoardAnalyzer(it).analyze()
+        }
     }
 }

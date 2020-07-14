@@ -155,7 +155,7 @@
     <div class="background" id="modalBackground"></div>
 </div>
 
-<script>
+<script th:inline="javascript">
     let x, y;
     window.onload = function () {
         const boardElm = document.querySelector('.board');
@@ -180,6 +180,7 @@
             button.addEventListener('click', function () {
                 const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']")
                 cell.textContent = button.value;
+                analyze();
                 modalElm.classList.remove('is-show');
             });
         });
@@ -188,6 +189,31 @@
         modalBackgroundElm.addEventListener('click', function () {
             modalElm.classList.remove('is-show');
         });
+
+        // ajax通信
+        function ajax(url, data) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = () => {
+                console.log(xhr.responseText);
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+        // 解析
+        let analyseURL = /*[[@{/number-place/analyze}]]*/ '';
+
+        function analyze() {
+            const board = []
+            boardNumberElms.forEach(function (elm) {
+                board.push(elm.dataset.x + ',' + elm.dataset.y + ',' + elm.textContent);
+            })
+            ajax(analyseURL, board);
+        }
+
+        // 初回のボード解析処理を実行する
+        analyze();
     }
 </script>
 
