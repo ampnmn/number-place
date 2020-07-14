@@ -35,6 +35,18 @@ div.mainContent {
         font-size: 18px;
       }
 
+      &.level1 {
+        background-color: #f49cde;
+      }
+
+      &.level2 {
+        background-color: #f7b7e7;
+      }
+
+      &.level3 {
+        background-color: #fce3f6;
+      }
+
       &.top {
         border-top: 3px solid black;
       }
@@ -91,7 +103,7 @@ div.mainContent {
       width: 70px;
       height: 70px;
       margin: 3px;
-      background: #00bfff;
+      background: #b1c9cc;
       border: none;
       border-radius: 100%;
       color: #fff;
@@ -101,7 +113,7 @@ div.mainContent {
     .clear {
       width: 95%;
       height: 40px;
-      background: #999999;
+      background: #e8e8e8;
       margin: 10px 3px 0 3px;
       border: none;
       border-radius: 20px;

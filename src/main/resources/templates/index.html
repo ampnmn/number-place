@@ -197,6 +197,7 @@
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onload = () => {
                 console.log(xhr.responseText);
+                leveling(JSON.parse(xhr.responseText));
             };
             xhr.send(JSON.stringify(data));
         }
@@ -210,6 +211,24 @@
                 board.push(elm.dataset.x + ',' + elm.dataset.y + ',' + elm.textContent);
             })
             ajax(analyseURL, board);
+        }
+
+        // レベリング
+        function leveling(indexAndLevels) {
+            mutableNumberElms.forEach(elm => {
+                elm.classList.remove("level1", "level2", "level3")
+            })
+            indexAndLevels.forEach(indexAndLevel => {
+                const x = indexAndLevel.index.x;
+                const y = indexAndLevel.index.y;
+                const level = indexAndLevel.level;
+                if (level > 3) return;
+
+                const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']")
+                if (level === 1) cell.classList.add("level1")
+                if (level === 2) cell.classList.add("level2")
+                if (level === 3) cell.classList.add("level3")
+            })
         }
 
         // 初回のボード解析処理を実行する

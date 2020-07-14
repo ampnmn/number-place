@@ -13,11 +13,11 @@ class BoardAnalyzer(
             (Board.minValue..Board.maxValue).map {
                 it.toString()
             }.filterNot {
-                board.row(cell.index.y).values().contains(it)
+                it in board.row(cell.index.y).values()
             }.filterNot {
-                board.column(cell.index.x).values().contains(it)
+                it in board.column(cell.index.x).values()
             }.filterNot {
-                board.block(cell.index.y, cell.index.x).values().contains(it)
+                it in board.block(cell.index.y, cell.index.x).values()
             }.let {
                 cell.index to it
             }

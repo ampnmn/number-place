@@ -111,7 +111,7 @@ class NumberPlaceController {
 
     @PostMapping("analyze")
     @ResponseBody
-    fun analyze(model: Model, @RequestBody board: Array<String>): List<String> {
+    fun analyze(model: Model, @RequestBody board: Array<String>): List<Level> {
         return board.map {
             val arr = it.split(',')
             Cell(index = Index(x = arr[0].toInt(), y = arr[1].toInt()), value = arr[2])
@@ -120,7 +120,12 @@ class NumberPlaceController {
         }.let {
             BoardAnalyzer(it).analyze()
         }.map { (index, values) ->
-            "${index.x},${index.y},${values.size}"
+            Level(index, values.size)
         }
     }
+
+    data class Level(
+            val index: Index,
+            val level: Int
+    )
 }
