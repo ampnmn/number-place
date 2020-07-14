@@ -6,7 +6,7 @@ class BoardAnalyzer(
     /**
      * セル毎に候補を出す
      */
-    fun analyze(): Map<Index, String> {
+    fun analyze(): Map<Index, List<String>> {
         return board.cells.filter { cell ->
             cell.isEmpty()
         }.map { cell ->
@@ -19,7 +19,7 @@ class BoardAnalyzer(
             }.filterNot {
                 board.block(cell.index.y, cell.index.x).values().contains(it)
             }.let {
-                cell.index to it.joinToString(separator = ",")
+                cell.index to it
             }
         }.toMap()
     }

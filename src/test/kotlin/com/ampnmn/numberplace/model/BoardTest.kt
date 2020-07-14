@@ -101,10 +101,10 @@ internal class BoardAnalyzerTest {
         val actual = BoardAnalyzer(board).analyze()
         Assertions.assertEquals(
                 mapOf(
-                        Index(3, 1) to "3",
-                        Index(6, 3) to "9"
+                        Index(3, 1) to listOf("3"),
+                        Index(6, 3) to listOf("9")
                 ),
-                actual.filter { it.value.split(",").size == 1 }
+                actual.filter { it.value.size == 1 }
         )
     }
 }

@@ -111,7 +111,7 @@ class NumberPlaceController {
 
     @PostMapping("analyze")
     @ResponseBody
-    fun analyze(model: Model, @RequestBody board: Array<String>): Map<Index, String> {
+    fun analyze(model: Model, @RequestBody board: Array<String>): List<String> {
         return board.map {
             val arr = it.split(',')
             Cell(index = Index(x = arr[0].toInt(), y = arr[1].toInt()), value = arr[2])
@@ -119,6 +119,8 @@ class NumberPlaceController {
             Board(it)
         }.let {
             BoardAnalyzer(it).analyze()
+        }.map { (index, values) ->
+            "${index.x},${index.y},${values.size}"
         }
     }
 }
