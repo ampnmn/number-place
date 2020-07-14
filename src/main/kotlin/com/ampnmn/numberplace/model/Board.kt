@@ -18,6 +18,8 @@ data class Board(
             throw IllegalArgumentException("Incomprehensible!!")
     }
 
+    val rows = (1..boardSize).map { row(it) }
+
     fun row(rowNumber: Int): List<Cell> = cells.filter {
         it.index.y == rowNumber
     }
