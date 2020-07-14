@@ -19,7 +19,8 @@
                 th:each="cell : ${row}" th:text="${cell.value}"
                 th:data-x="${cell.index.x}" th:data-y="${cell.index.y}"
                 th:class="boardNumber"
-                th:classappend="${(rowStat.first ? 'top' : '')
+                th:classappend="${(cell.value.isBlank() ? 'mutable' : 'immutable')
+                    + (rowStat.first ? ' top' : '')
                     + (cellStat.first ? ' left' : '')
                     + ((rowStat.index + 1) % board.blockSize == 0 ? ' bottom' : '')
                     + ((cellStat.index + 1) % board.blockSize == 0 ? ' right' : '')}">1
@@ -159,13 +160,14 @@
     window.onload = function () {
         const boardElm = document.querySelector('.board');
         const boardNumberElms = boardElm.querySelectorAll('.boardNumber');
+        const mutableNumberElms = boardElm.querySelectorAll('.boardNumber.mutable');
 
         const modalElm = document.querySelector('#Modal');
         const modalNumberElms = modalElm.querySelectorAll('.number');
         const modalBackgroundElm = modalElm.querySelector('#modalBackground');
 
         // モーダルをOPENする
-        boardNumberElms.forEach(boardNumber => {
+        mutableNumberElms.forEach(boardNumber => {
             boardNumber.addEventListener('click', function () {
                 x = this.dataset.x;
                 y = this.dataset.y;

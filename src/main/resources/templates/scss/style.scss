@@ -25,6 +25,16 @@ div.mainContent {
       height: 40px;
       margin: 3px;
 
+      &.mutable {
+        font-weight: normal;
+        font-size: 15px;
+      }
+
+      &.immutable {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
       &.top {
         border-top: 3px solid black;
       }
@@ -64,7 +74,7 @@ div.mainContent {
     position: absolute;
     left: 50%;
     top: 50%;
-    border-radius: 40px;
+    border-radius: 25px;
     transform: translate(-50%, -50%);
     padding: 30px;
     background-color: #fff;
@@ -81,7 +91,7 @@ div.mainContent {
       width: 70px;
       height: 70px;
       margin: 3px;
-      background: pink;
+      background: #00bfff;
       border: none;
       border-radius: 100%;
       color: #fff;
