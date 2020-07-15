@@ -2,6 +2,8 @@ package com.ampnmn.numberplace.model
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 
 internal class BoardAnalyzerTest {
     @Test
@@ -105,6 +107,29 @@ internal class BoardAnalyzerTest {
                         Index(6, 3) to listOf("9")
                 ),
                 actual.filter { it.value.size == 1 }
+        )
+    }
+
+    companion object {
+        @JvmStatic
+        @Suppress("unused")
+        fun indexProvider() = (1..9).let {
+            it.flatMap { x -> it.map { y -> Index(x, y) } }
+        }
+
+        @JvmStatic
+        private val emptyBoard = indexProvider().map {
+            Cell(it, "${it.x},${it.y}")
+        }.let {
+            Board(it)
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("indexProvider")
+    fun blockTest(index: Index) {
+        Assertions.assertTrue(
+                index in emptyBoard.block(index.y, index.x).map { it.index }.also { it.forEach { println(it) } }
         )
     }
 }
