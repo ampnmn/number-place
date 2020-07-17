@@ -13,7 +13,6 @@
 
 <div class="mainContent">
     <table class="board">
-
         <tr th:each="row : ${board.rows}">
             <td class="boardNumber top left" data-x="1" data-y="1"
                 th:each="cell : ${row}" th:text="${cell.value}"
@@ -129,7 +128,7 @@
     </table>
 </div>
 
-<div class="modal" id="Modal">
+<div class="modal" id="modalNumberSelector">
     <div class="inner">
         <div class="numberSelector">
             <div class="row">
@@ -152,52 +151,117 @@
             </div>
         </div>
     </div>
-    <div class="background" id="modalBackground"></div>
+    <div class="background"></div>
+</div>
+
+<div class="modal" id="modalSettings">
+    <div class="inner">
+        <div class="clues">
+            <input type="radio" name="clues" id="no-clues" style="" checked>
+            <label for="no-clues">no clues</label>
+            <input type="radio" name="clues" id="little-clues" style="">
+            <label for="little-clues">little clues</label>
+            <input type="radio" name="clues" id="rich-clues" style="">
+            <label for="rich-clues">rich clues</label>
+        </div>
+    </div>
+    <div class="background"></div>
 </div>
 
 <script th:inline="javascript">
-    let x, y;
+    let x, y, possibles;
     window.onload = function () {
+
+        // ボード
         const boardElm = document.querySelector('.board');
+        // ボード上の数字
         const boardNumberElms = boardElm.querySelectorAll('.boardNumber');
+        // ボード上の数字（変更できないもの）
         const mutableNumberElms = boardElm.querySelectorAll('.boardNumber.mutable');
 
-        const modalElm = document.querySelector('#Modal');
-        const modalNumberElms = modalElm.querySelectorAll('.number');
-        const modalBackgroundElm = modalElm.querySelector('#modalBackground');
+        // 数字選択モーダル
+        const modalNumberSelectorElm = document.querySelector('#modalNumberSelector');
+        // 数字選択モーダル上の数字
+        const modalNumberElms = modalNumberSelectorElm.querySelectorAll('.number');
+
+        // 設定モーダル
+        const modalSettingElm = document.querySelector('#modalSettings');
+        const noCluesElm = document.querySelector('#no-clues');
+        const littleCluesElm = document.querySelector('#little-clues');
+        const richCluesElm = document.querySelector('#rich-clues');
+
+        // モーダルの背景
+        const modalBackgroundElms = document.querySelectorAll('.background');
 
         // モーダルをOPENする
         mutableNumberElms.forEach(boardNumber => {
             boardNumber.addEventListener('click', function () {
                 x = this.dataset.x;
                 y = this.dataset.y;
-                modalElm.classList.add('is-show');
-            })
+                modalNumberElms.forEach(function (button) {
+                    button.removeAttribute("disabled");
+                });
+                if (richCluesElm.checked) {
+                    possibles = this.getAttribute("possibles");
+                    if (possibles) {
+                        const arr = possibles.split(',');
+                        modalNumberElms.forEach(function (button) {
+                            if (button.classList.contains("clear")) {
+                                return;
+                            }
+                            if (!arr.includes(button.value)) {
+                                button.setAttribute("disabled", "disabled");
+                            }
+                        });
+                    }
+                }
+                modalNumberSelectorElm.classList.add('is-show');
+            });
         });
+
+        document.querySelector('h1').addEventListener('click', function () {
+            modalSettingElm.classList.add('is-show');
+        })
 
         // モーダルで数字を選択する
         modalNumberElms.forEach(function (button) {
             button.addEventListener('click', function () {
-                const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']")
+                const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']");
                 cell.textContent = button.value;
-                analyze();
-                modalElm.classList.remove('is-show');
+                decorate();
+                modalNumberSelectorElm.classList.remove('is-show');
             });
         });
 
         // モーダルをCLOSEする
-        modalBackgroundElm.addEventListener('click', function () {
-            modalElm.classList.remove('is-show');
-        });
+        modalBackgroundElms.forEach(function (background) {
+            background.addEventListener('click', function () {
+                decorate();
+                document.querySelector(".modal.is-show").classList.remove('is-show');
+            });
+        })
 
         // ajax通信
-        function ajax(url, data) {
+        function decorateAjax(url, data) {
             const xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onload = () => {
                 console.log(xhr.responseText);
-                leveling(JSON.parse(xhr.responseText));
+                JSON.parse(xhr.responseText).forEach(possibility => {
+                    const x = possibility.index.x;
+                    const y = possibility.index.y;
+                    const possibles = possibility.possibles;
+                    const count = possibles.length;
+
+                    const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']");
+                    cell.setAttribute("possibles", possibles);
+
+                    if (count > 3) return;
+                    if (count === 1) cell.classList.add("level1");
+                    if (count === 2) cell.classList.add("level2");
+                    if (count === 3) cell.classList.add("level3");
+                });
             };
             xhr.send(JSON.stringify(data));
         }
@@ -205,34 +269,19 @@
         // 解析
         let analyseURL = /*[[@{/number-place/analyze}]]*/ '';
 
-        function analyze() {
-            const board = []
+        function decorate() {
+            mutableNumberElms.forEach(elm => {
+                elm.classList.remove("level1", "level2", "level3");
+            });
+
+            if (noCluesElm.checked) return;
+
+            const board = [];
             boardNumberElms.forEach(function (elm) {
                 board.push(elm.dataset.x + ',' + elm.dataset.y + ',' + elm.textContent);
-            })
-            ajax(analyseURL, board);
+            });
+            decorateAjax(analyseURL, board);
         }
-
-        // レベリング
-        function leveling(indexAndLevels) {
-            mutableNumberElms.forEach(elm => {
-                elm.classList.remove("level1", "level2", "level3")
-            })
-            indexAndLevels.forEach(indexAndLevel => {
-                const x = indexAndLevel.index.x;
-                const y = indexAndLevel.index.y;
-                const level = indexAndLevel.level;
-                if (level > 3) return;
-
-                const cell = boardElm.querySelector("[data-x='" + x + "'][data-y='" + y + "']")
-                if (level === 1) cell.classList.add("level1")
-                if (level === 2) cell.classList.add("level2")
-                if (level === 3) cell.classList.add("level3")
-            })
-        }
-
-        // 初回のボード解析処理を実行する
-        analyze();
     }
 </script>
 

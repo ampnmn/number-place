@@ -111,21 +111,25 @@ class NumberPlaceController {
 
     @PostMapping("analyze")
     @ResponseBody
-    fun analyze(model: Model, @RequestBody board: Array<String>): List<Level> {
-        return board.map {
-            val arr = it.split(',')
-            Cell(index = Index(x = arr[0].toInt(), y = arr[1].toInt()), value = arr[2])
-        }.let {
-            Board(it)
-        }.let {
+    fun analyze(model: Model, @RequestBody joinedStr: Array<String>): List<Possibility> {
+        return Board(joinedStr.toCells()).let {
             BoardAnalyzer(it).analyze()
         }.map { (index, values) ->
-            Level(index, values.size)
+            Possibility(index, values)
         }
     }
 
-    data class Level(
+    /**
+     * [x,y,value] のように [,] で連結された文字列配列を Cell のリストに変換する
+     */
+    private fun Array<String>.toCells() = map { joined ->
+        joined.split(',').let {
+            Cell(index = Index(x = it[0].toInt(), y = it[1].toInt()), value = it[2])
+        }
+    }
+
+    data class Possibility(
             val index: Index,
-            val level: Int
+            val possibles: List<String>
     )
 }

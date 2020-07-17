@@ -10,7 +10,6 @@ h1 {
     font-size: 2em;
     color: deepskyblue;
   }
-
 }
 
 div.mainContent {
@@ -108,12 +107,16 @@ div.mainContent {
       border-radius: 100%;
       color: #fff;
       font-size: 30px;
+
+      &:disabled {
+        background: #e8e8e8;
+      }
     }
 
     .clear {
       width: 95%;
       height: 40px;
-      background: #e8e8e8;
+      background: #cecece;
       margin: 10px 3px 0 3px;
       border: none;
       border-radius: 20px;
