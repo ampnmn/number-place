@@ -33,7 +33,7 @@ data class Board(
             it.flatMap { y -> it.map { x -> Index(x, y) } }
         }.filter {
             it.x <= columnNumber && it.y <= rowNumber
-        }.max() ?: throw IllegalArgumentException("top-cell is not found.")
+        }.maxOrNull() ?: throw IllegalArgumentException("top-cell is not found.")
 
         return (top.y until top.y + blockSize).flatMap { y ->
             (top.x until top.x + blockSize).mapNotNull { x ->
