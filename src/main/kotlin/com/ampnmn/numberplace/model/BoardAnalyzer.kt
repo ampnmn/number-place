@@ -29,6 +29,4 @@ class BoardAnalyzer(
                     .let { cell.index to it }
         }.toMap()
     }
-
-    private fun List<Cell>.values() = this.map { it.value }
 }
