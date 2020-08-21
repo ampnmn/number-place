@@ -129,7 +129,7 @@ internal class BoardAnalyzerTest {
     @MethodSource("indexProvider")
     fun blockTest(index: Index) {
         Assertions.assertTrue(
-                index in emptyBoard.block(index.y, index.x).map { it.index }.also { it.forEach { println(it) } }
+                index in emptyBoard.block(index.y, index.x).map { it.index }
         )
     }
 }
