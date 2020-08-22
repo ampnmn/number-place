@@ -18,7 +18,10 @@ data class Board(
             throw IllegalArgumentException("Incomprehensible!!")
     }
 
-    val rows = (1..boardSize).map { row(it) }
+    val rows = (minValue..maxValue).map { row(it) }
+    val blocks = (minValue until maxValue step blockSize).flatMap { x ->
+        (minValue until maxValue step blockSize).map { y -> block(x, y) }
+    }
 
     fun row(rowNumber: Int): List<Cell> = cells.filter {
         it.index.y == rowNumber

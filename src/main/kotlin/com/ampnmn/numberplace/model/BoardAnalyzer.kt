@@ -19,14 +19,51 @@ class BoardAnalyzer(
      * セル毎に候補を出す
      */
     fun analyze(): Map<Index, List<String>> {
+        val valueRange = (Board.minValue..Board.maxValue)
+        return board.cells.filter { it.isEmpty() }
+                .map { emptyCell ->
+                    valueRange.map { it.toString() }
+                            .filter { value ->
+                                rules.all { it.verify(board, emptyCell.index, value) }
+                            }.let { values ->
+                                emptyCell.index to values
+                            }
+                }.let {
+                    val replaced = valueRange.flatMap { i ->
+                        it.replaceValuesWhenHavingOnlyOneValue(
+                                filter = { index ->
+                                    index.x == i
+                                }
+                        ) + it.replaceValuesWhenHavingOnlyOneValue(
+                                filter = { index ->
+                                    index.y == i
+                                }
+                        ) + it.replaceValuesWhenHavingOnlyOneValue(
+                                filter = { index ->
+                                    board.blocks[i - 1].map { cell -> cell.index }.contains(index)
+                                }
+                        )
+                    }
+                    it.toMap() + replaced.toMap()
+                }
+    }
 
-        return board.cells.filter { cell ->
-            cell.isEmpty()
-        }.map { cell ->
-            (Board.minValue..Board.maxValue)
-                    .map { it.toString() }
-                    .filter { value -> rules.all { it.verify(board, cell.index, value) } }
-                    .let { cell.index to it }
-        }.toMap()
+    private fun List<Pair<Index, List<String>>>.replaceValuesWhenHavingOnlyOneValue(
+            filter: (Index) -> Boolean
+    ): List<Pair<Index, List<String>>> {
+        return filter { (index, _) ->
+            filter(index)
+        }.filter { (_, values) ->
+            values.size >= 2
+        }.let {
+            val allValues = it.flatMap { (_, values) -> values }
+            it.mapNotNull { (index, values) ->
+                values.find { value ->
+                    allValues.count { it == value } == 1
+                }?.let {
+                    index to listOf(it)
+                }
+            }
+        }
     }
 }

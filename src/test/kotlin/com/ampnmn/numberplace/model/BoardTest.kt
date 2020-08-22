@@ -103,8 +103,22 @@ internal class BoardAnalyzerTest {
         val actual = BoardAnalyzer(board).analyze()
         Assertions.assertEquals(
                 mapOf(
+                        Index(1, 1) to listOf("4"),
+                        Index(1, 3) to listOf("1"),
+                        Index(2, 2) to listOf("8"),
+                        Index(2, 5) to listOf("1"),
                         Index(3, 1) to listOf("3"),
-                        Index(6, 3) to listOf("9")
+                        Index(3, 5) to listOf("2"),
+                        Index(4, 2) to listOf("4"),
+                        Index(4, 9) to listOf("3"),
+                        Index(5, 1) to listOf("6"),
+                        Index(5, 3) to listOf("2"),
+                        Index(6, 3) to listOf("9"),
+                        Index(6, 5) to listOf("8"),
+                        Index(6, 9) to listOf("6"),
+                        Index(7, 5) to listOf("4"),
+                        Index(8, 1) to listOf("1"),
+                        Index(9, 8) to listOf("3")
                 ),
                 actual.filter { it.value.size == 1 }
         )
