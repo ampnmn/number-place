@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run maven test
-      uses: xlui/action-maven-cli/jdk11@master
-      id: test
+    - uses: olafurpg/setup-scala@v5
       with:
-        lifecycle: 'clean package test'
+        java-version: amazon-corretto@1.11.0-7.10.1
+    - name: Run maven test
+      run: ./mvnw clean test'
