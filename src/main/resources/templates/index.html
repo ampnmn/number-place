@@ -15,10 +15,10 @@
     <table class="board">
         <tr th:each="row : ${board.rows}">
             <td class="boardNumber top left" data-x="1" data-y="1"
-                th:each="cell : ${row}" th:text="${cell.value}"
+                th:each="cell : ${row}" th:text="${cell.number}"
                 th:data-x="${cell.index.x}" th:data-y="${cell.index.y}"
                 th:class="boardNumber"
-                th:classappend="${(cell.value.isBlank() ? 'mutable' : 'immutable')
+                th:classappend="${(cell.isEmpty() ? 'mutable' : 'immutable')
                     + (rowStat.first ? ' top' : '')
                     + (cellStat.first ? ' left' : '')
                     + ((rowStat.index + 1) % board.blockSize == 0 ? ' bottom' : '')
