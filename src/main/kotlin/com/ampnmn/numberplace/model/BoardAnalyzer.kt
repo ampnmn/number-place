@@ -4,16 +4,17 @@ class BoardAnalyzer(
         private val board: Board
 ) {
     fun analyze(): Map<Index, List<Number>> {
-        val numberRange = (Board.minValue..Board.maxValue).map { Number(it) }
+        val boardType = board.boardType
+        val numberRange = boardType.numberRange.map { Number(it) }
         val emptyCells = board.getAllEmptyCells()
         return emptyCells.map { cell ->
             numberRange
-                    .filterNot { number ->
-                        board.getRow(cell).containsNumber(number)
-                    }.filterNot { number ->
-                        board.getColumn(cell).containsNumber(number)
-                    }.filterNot { number ->
-                        board.getBlock(cell).containsNumber(number)
+                    .filterNot {
+                        board.getRow(cell).containsNumber(it)
+                    }.filterNot {
+                        board.getColumn(cell).containsNumber(it)
+                    }.filterNot {
+                        board.getBlock(cell).containsNumber(it)
                     }.let { numbers ->
                         cell.index to numbers
                     }

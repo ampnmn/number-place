@@ -21,8 +21,8 @@
                 th:classappend="${(cell.isEmpty() ? 'mutable' : 'immutable')
                     + (rowStat.first ? ' top' : '')
                     + (cellStat.first ? ' left' : '')
-                    + ((rowStat.index + 1) % board.blockSize == 0 ? ' bottom' : '')
-                    + ((cellStat.index + 1) % board.blockSize == 0 ? ' right' : '')}">1
+                    + ((rowStat.index + 1) % board.boardType.blockSize == 0 ? ' bottom' : '')
+                    + ((cellStat.index + 1) % board.boardType.blockSize == 0 ? ' right' : '')}">1
             </td>
             <!--/* -->
             <td class="boardNumber top" data-x="2" data-y="2">2</td>
