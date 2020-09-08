@@ -4,7 +4,7 @@ class BoardAnalyzer(
         private val board: Board
 ) {
     fun analyze(): Map<Index, List<Number>> {
-        val boardType = board.boardType
+        val boardType = board.type
         val numberRange = boardType.numberRange.map { Number(it) }
         val emptyCells = board.getAllEmptyCells()
         return emptyCells.map { cell ->

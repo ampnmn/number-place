@@ -12,7 +12,7 @@ class NumberPlaceController {
     @GetMapping
     fun getIndex(model: Model): String {
         Board(
-                boardType = BoardType.ThreeByThree,
+                type = BoardType.ThreeByThree,
                 cells = listOf(
                         Cell(Index(1, 1), Number("")),
                         Cell(Index(1, 2), Number("2")),
@@ -114,7 +114,7 @@ class NumberPlaceController {
     fun analyze(model: Model, @RequestBody joinedStr: Array<String>): List<Possibility> {
         val cells = joinedStr.toCells()
         return Board(
-                boardType = BoardType.cellSizeOf(cells.size),
+                type = BoardType.cellCountOf(cells.size),
                 cells = cells
         ).let {
             BoardAnalyzer(it).analyze()

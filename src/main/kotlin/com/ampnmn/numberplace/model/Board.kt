@@ -4,11 +4,11 @@ package com.ampnmn.numberplace.model
  * ボード
  */
 data class Board(
-        val boardType: BoardType,
+        val type: BoardType,
         val cells: List<Cell>
 ) {
     init {
-        if (cells.size != boardType.cellSize)
+        if (cells.size != type.cellCount)
             throw IllegalArgumentException("Incomprehensible cells.")
     }
 
@@ -16,11 +16,11 @@ data class Board(
 
     val columns: List<Column> = cells.groupBy { it.index.x }.values.map { Column(it) }
 
-    val blocks: List<Block> = boardType.topIndexes.map { top ->
-        (top.x until top.x + boardType.blockSize).flatMap { x ->
-            (top.y until top.y + boardType.blockSize).mapNotNull { y ->
+    val blocks: List<Block> = type.topIndexes.map { top ->
+        (top.x until top.x + type.blockSize).flatMap { x ->
+            (top.y until top.y + type.blockSize).mapNotNull { y ->
                 cells.find { it.index.x == x && it.index.y == y }
-            }
+           }
         }.let { Block(it) }
     }
 

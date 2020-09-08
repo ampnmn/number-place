@@ -15,12 +15,12 @@ enum class BoardType(
     val maxNumber: Int = numberRange.maxOrNull()!!
     val boardSize: Int = numberRange.count()
     val blockSize: Int = sqrt(boardSize.toDouble()).toInt()
-    val cellSize: Int = boardSize.toDouble().pow(2).toInt()
+    val cellCount: Int = boardSize.toDouble().pow(2).toInt()
     val topIndexes = (minNumber until maxNumber step blockSize).let {
         it.flatMap { y -> it.map { x -> Index(x, y) } }
     }
 
     companion object {
-        fun cellSizeOf(size: Int) = values().single { it.cellSize == size }
+        fun cellCountOf(size: Int) = values().single { it.cellCount == size }
     }
 }
