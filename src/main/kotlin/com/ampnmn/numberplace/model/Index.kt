@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace.model
+package com.ampnmn.numberPlace.model
 
 data class Index(val x: Int, val y: Int) : Comparable<Index> {
     override fun compareTo(other: Index): Int {

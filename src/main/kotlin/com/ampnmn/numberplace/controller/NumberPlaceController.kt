@@ -1,7 +1,7 @@
-package com.ampnmn.numberplace.controller
+package com.ampnmn.numberPlace.controller
 
-import com.ampnmn.numberplace.model.*
-import com.ampnmn.numberplace.model.Number
+import com.ampnmn.numberPlace.model.*
+import com.ampnmn.numberPlace.model.Number
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*

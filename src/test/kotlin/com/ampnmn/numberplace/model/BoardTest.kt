@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace.model
+package com.ampnmn.numberPlace.model
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

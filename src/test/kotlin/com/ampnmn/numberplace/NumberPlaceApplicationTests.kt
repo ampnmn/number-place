@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace
+package com.ampnmn.numberPlace
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

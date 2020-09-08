@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace
+package com.ampnmn.numberPlace
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

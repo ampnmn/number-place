@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace.model
+package com.ampnmn.numberPlace.model
 
 import kotlin.math.pow
 import kotlin.math.sqrt

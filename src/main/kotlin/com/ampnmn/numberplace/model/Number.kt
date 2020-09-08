@@ -1,4 +1,4 @@
-package com.ampnmn.numberplace.model
+package com.ampnmn.numberPlace.model
 
 data class Number(val value: String) {
 
